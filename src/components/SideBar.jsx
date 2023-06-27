@@ -10,10 +10,6 @@ import {
 } from "@mui/icons-material";
 import {
   Box,
-  Stack,
-  ThemeProvider,
-  createTheme,
-  SwipeableDrawer,
   List,
   ListItem,
   ListItemButton,
@@ -21,31 +17,17 @@ import {
   ListItemText,
   Switch,
 } from "@mui/material";
-import SideBar from "./components/SideBar";
-import Feed from "./components/Feed";
-import RightBar from "./components/RightBar";
-import Navbar from "./components/Navbar";
-import { useState } from "react";
+import React from "react";
 
-function App() {
-  const [mode, setMode] = useState("light");
-  const [drawer, setDrawer] = useState(false);
-  const darkTheme = createTheme({
-    palette: {
-      mode: mode,
-    },
-  });
+const SideBar = ({ setMode, mode }) => {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Box bgcolor={`background.default`} color={`text.primary`}>
-        <Navbar drawer={drawer} setDrawer={setDrawer} />
-        <Stack direction="row" spacing={2} justifyContent={"space-between"}>
-          <SideBar setMode={setMode} mode={mode} />
-          <Feed />
-          <RightBar />
-        </Stack>
-      </Box>
-      <SwipeableDrawer open={drawer} onClose={(e) => setDrawer(false)}>
+    <Box
+      flex={1}
+      position="relative"
+      sx={{ display: { xs: "none", sm: "block" } }}
+      p={2}
+    >
+      <Box position="fixed">
         <List>
           {/* Item 1 */}
           <ListItem disablePadding>
@@ -122,9 +104,9 @@ function App() {
             </ListItemButton>
           </ListItem>
         </List>
-      </SwipeableDrawer>
-    </ThemeProvider>
+      </Box>
+    </Box>
   );
-}
+};
 
-export default App;
+export default SideBar;
